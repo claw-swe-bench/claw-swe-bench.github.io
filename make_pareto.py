@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Render assets/pareto.svg — a dark-theme, site-matching version of the paper's
-cost-vs-resolve Pareto figure (5 claws x 2 models), drawn from the SAME data in
-data/leaderboard.json (so it stays in sync with the tables).
+Render assets/pareto.svg — a THEME-ADAPTIVE cost-vs-resolve Pareto figure
+(5 claws x 2 models), drawn from the same data in data/leaderboard.json.
 
 X = total API cost (USD, log scale); Y = Pass@1 (%). GLM 5.1 = brand orange,
-Qwen 3.6-flash = teal. One marker shape per claw. Transparent background so it
-sits on the page's dark card; text uses the page font (Inter) via svg.fonttype.
+Qwen 3.6-flash = teal (both theme-independent). Everything else (text, ticks,
+axes, frontier line, marker outlines, grid) is emitted with sentinel colors and
+post-processed to CSS-driven values so it follows the page's dark/light theme:
+  - ink elements  -> currentColor   (the figure card sets `color` per theme)
+  - grid lines    -> var(--fig-grid) (defined per theme in build.py CSS)
 """
-import json, os
+import json, os, re
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -18,10 +20,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data", "leaderboard.json")
 OUT = os.path.join(HERE, "assets", "pareto.svg")
 
-BRAND = "#f07010"     # GLM 5.1
-TEAL  = "#2dd4bf"     # Qwen 3.6-flash
-T1, T2, T3 = "#f0f0f5", "#9a9ab0", "#6a6a80"
-LINE, GRID = "#cbd2e0", "#2a2a3a"
+BRAND = "#f07010"     # GLM 5.1   (theme-independent)
+TEAL  = "#2dd4bf"     # Qwen 3.6-flash (theme-independent)
+INK   = "#ff00ff"     # sentinel -> currentColor   (text / line / axes / outlines)
+GRIDC = "#00ff00"     # sentinel -> var(--fig-grid) (grid lines)
 
 MODEL_COLOR = {"GLM 5.1": BRAND, "Qwen 3.6-flash": TEAL}
 CLAW_MARK = {  # system -> (matplotlib marker, short label)
@@ -57,7 +59,6 @@ def load_points():
 
 
 def pareto_front(pts):
-    """Non-dominated set: maximise Pass@1, minimise cost."""
     front = []
     for p in pts:
         if not any((q["cost"] <= p["cost"] and q["y"] >= p["y"] and q is not p
@@ -74,58 +75,63 @@ def main():
         "font.family": "sans-serif",
         "font.sans-serif": ["Inter", "Helvetica", "Arial", "DejaVu Sans"],
         "svg.fonttype": "none",
-        "text.color": T2, "axes.labelcolor": T2,
-        "xtick.color": T2, "ytick.color": T2,
-        "axes.edgecolor": GRID,
+        "text.color": INK, "axes.labelcolor": INK,
+        "xtick.color": INK, "ytick.color": INK,
+        "axes.edgecolor": GRIDC,
     })
     fig, ax = plt.subplots(figsize=(9.2, 5.2), dpi=100)
     fig.patch.set_alpha(0.0)
     ax.set_facecolor("none")
 
-    # pareto frontier line (behind markers)
     ax.plot([p["cost"] for p in front], [p["y"] for p in front],
-            "-", color=LINE, lw=2.2, zorder=1, solid_capstyle="round", alpha=.9)
+            "-", color=INK, lw=2.2, zorder=1, solid_capstyle="round", alpha=.85)
 
     frontset = {id(p) for p in front}
     for p in pts:
         mk, _ = CLAW_MARK[p["claw"]]
         col = MODEL_COLOR[p["model"]]
         on = id(p) in frontset
-        ax.scatter(p["cost"], p["y"], marker=mk, s=190 if on else 96,
-                   facecolor=col, edgecolor=("#0a0a0f" if on else col),
+        ax.scatter(p["cost"], p["y"], marker=mk, s=200 if on else 96,
+                   facecolor=col, edgecolor=(INK if on else "none"),
                    linewidth=1.6 if on else 0, zorder=4 if on else 3,
-                   alpha=1.0 if on else .9)
+                   alpha=1.0 if on else .92)
         dx, dy, ha = LABEL[(p["model"], p["claw"])]
         ax.annotate(CLAW_MARK[p["claw"]][1], (p["cost"], p["y"]),
                     textcoords="offset points", xytext=(dx, dy), ha=ha,
-                    va="center", fontsize=11, color=T1, zorder=5)
+                    va="center", fontsize=11, color=INK, zorder=5)
 
     ax.set_xscale("log")
     ax.set_xticks([20, 50, 100, 200, 500])
     ax.set_xticklabels([f"${v}" for v in (20, 50, 100, 200, 500)])
     ax.set_xlabel("Total API cost for full 350-instance run  (USD, log scale)", fontsize=12.5)
     ax.set_ylabel("Resolved rate / Pass@1  (%)", fontsize=12.5)
-    ax.grid(True, which="major", color=GRID, lw=.8, alpha=.55)
-    ax.grid(True, which="minor", color=GRID, lw=.5, alpha=.25)
+    ax.grid(True, which="major", color=GRIDC, lw=.8, alpha=.6)
+    ax.grid(True, which="minor", color=GRIDC, lw=.5, alpha=.3)
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
     ax.tick_params(labelsize=11)
 
-    # legend: model colours + frontier line
     handles = [
-        Line2D([0], [0], color=LINE, lw=2.2, label="Pareto frontier"),
+        Line2D([0], [0], color=INK, lw=2.2, label="Pareto frontier"),
         Line2D([0], [0], marker="o", color="none", markerfacecolor=BRAND,
                markersize=10, label="GLM 5.1"),
         Line2D([0], [0], marker="o", color="none", markerfacecolor=TEAL,
                markersize=10, label="Qwen 3.6-flash"),
     ]
-    leg = ax.legend(handles=handles, loc="upper left", frameon=False,
-                    fontsize=11, labelcolor=T1, handletextpad=.6, borderaxespad=.8)
+    ax.legend(handles=handles, loc="upper left", frameon=False,
+              fontsize=11, labelcolor=INK, handletextpad=.6, borderaxespad=.8)
 
     fig.tight_layout()
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     fig.savefig(OUT, format="svg", transparent=True, bbox_inches="tight")
     plt.close(fig)
+
+    # post-process: swap sentinels for CSS-driven colors so the figure follows the theme
+    s = open(OUT, encoding="utf-8").read()
+    s = re.sub(re.escape(INK), "currentColor", s, flags=re.I)
+    s = re.sub(re.escape(GRIDC), "var(--fig-grid)", s, flags=re.I)
+    open(OUT, "w", encoding="utf-8").write(s)
+
     print(f"wrote {OUT}")
     print("  frontier:", " → ".join(f'{p["claw"]}({p["model"].split()[0]},${p["cost"]:.0f},{p["y"]}%)' for p in front))
 

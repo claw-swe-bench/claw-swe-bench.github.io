@@ -32,10 +32,12 @@ TEMPLATE = r"""<!DOCTYPE html>
   --font-sans:"Inter","Noto Sans SC",system-ui,-apple-system,sans-serif;
   --font-display:"Space Grotesk","Inter",system-ui,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --fig-grid:#44485a;
 }
 [data-theme="light"]{
   --surface:#f8f8fc; --card:#ffffff; --hover:#f0f0f5; --border:#e0e0ea;
   --t1:#1a1a2e; --t2:#4a4a60; --t3:#8a8aa0;
+  --fig-grid:#cdcdd9;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -146,7 +148,7 @@ td .tag{margin-left:0}
 .grp-title{font-size:13px;font-weight:600;color:var(--t1);padding:15px 16px 8px;background:var(--card)}
 .grp-title .k{color:var(--t3);font-weight:400}
 .divider{height:1px;background:var(--border)}
-.figure-card{padding:22px 20px 12px;background:var(--card)}
+.figure-card{padding:22px 20px 12px;background:var(--card);color:var(--t1)}
 .figure-card svg{display:block;width:100%;height:auto;max-width:920px;margin:0 auto}
 
 /* ---- footer ---- */
