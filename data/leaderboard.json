@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "name": "Claw-SWE-Bench",
+    "split": "Full-350",
+    "instances": 350,
+    "languages": [
+      "Java",
+      "Go",
+      "Rust",
+      "JS/TS",
+      "C/C++",
+      "Ruby",
+      "PHP",
+      "Python"
+    ],
+    "primary_metric": "Total Pass@1",
+    "paper": "https://arxiv.org/abs/2606.12344",
+    "github": "https://github.com/opensquilla/claw-swe-bench",
+    "cost_note": "Cost is total USD over the 350-instance run, as reported in the paper.",
+    "description": "Claw-SWE-Bench elevates the agent harness (a \"claw\") to a controlled variable: model, task set, Docker runtime and the official SWE-bench evaluator are held fixed; only the harness (or the model under a fixed harness) varies. 350 real GitHub issue-resolution tasks across 8 languages and 43 repositories."
+  },
+  "sections": {
+    "openclaw": {
+      "id": "openclaw",
+      "title": "OpenClaw × Models",
+      "subtitle": "Fixed harness (OpenClaw), varying the LLM — isolates the model effect (paper Table 2).",
+      "fixed": "OpenClaw harness",
+      "rows": [
+        {
+          "system": "GPT 5.5",
+          "org": "OpenAI",
+          "open_weights": false,
+          "tier": "Flagship",
+          "total_pass1": 78.0,
+          "resolved": 273,
+          "instances": 350,
+          "per_language": {
+            "Java": 86.0,
+            "Go": 61.9,
+            "Rust": 93.0,
+            "JS/TS": 79.1,
+            "C/C++": 81.0,
+            "Ruby": 70.5,
+            "PHP": 74.4,
+            "Python": 78.0
+          },
+          "cost_usd": 1399.1,
+          "avg_duration_s": 603.7,
+          "avg_turns": 67.0,
+          "cache_hit": 97.3,
+          "rank": 1
+        },
+        {
+          "system": "Claude Opus 4.7",
+          "org": "Anthropic",
+          "open_weights": false,
+          "tier": "Flagship",
+          "total_pass1": 77.1,
+          "resolved": 270,
+          "instances": 350,
+          "per_language": {
+            "Java": 86.0,
+            "Go": 61.9,
+            "Rust": 88.4,
+            "JS/TS": 81.4,
+            "C/C++": 71.4,
+            "Ruby": 68.2,
+            "PHP": 76.7,
+            "Python": 82.0
+          },
+          "cost_usd": 1082.0,
+          "avg_duration_s": 424.6,
+          "avg_turns": 61.6,
+          "cache_hit": 97.0,
+          "rank": 2
+        },
+        {
+          "system": "GLM 5.1",
+          "org": "Z.ai",
+          "open_weights": true,
+          "tier": "Flagship",
+          "total_pass1": 73.4,
+          "resolved": 257,
+          "instances": 350,
+          "per_language": {
+            "Java": 76.7,
+            "Go": 57.1,
+            "Rust": 86.0,
+            "JS/TS": 74.4,
+            "C/C++": 81.0,
+            "Ruby": 68.2,
+            "PHP": 72.1,
+            "Python": 72.0
+          },
+          "cost_usd": 277.0,
+          "avg_duration_s": 586.8,
+          "avg_turns": 80.6,
+          "cache_hit": 96.5,
+          "rank": 3
+        },
+        {
+          "system": "DeepSeek-V4 Pro",
+          "org": "DeepSeek",
+          "open_weights": true,
+          "tier": "Flagship",
+          "total_pass1": 71.7,
+          "resolved": 251,
+          "instances": 350,
+          "per_language": {
+            "Java": 79.1,
+            "Go": 50.0,
+            "Rust": 79.1,
+            "JS/TS": 74.4,
+            "C/C++": 73.8,
+            "Ruby": 72.7,
+            "PHP": 76.7,
+            "Python": 68.0
+          },
+          "cost_usd": 81.3,
+          "avg_duration_s": 662.3,
+          "avg_turns": 47.1,
+          "cache_hit": 97.4,
+          "rank": 4
+        },
+        {
+          "system": "DeepSeek-V4 Flash",
+          "org": "DeepSeek",
+          "open_weights": true,
+          "tier": "Flash",
+          "total_pass1": 70.3,
+          "resolved": 246,
+          "instances": 350,
+          "per_language": {
+            "Java": 81.4,
+            "Go": 50.0,
+            "Rust": 79.1,
+            "JS/TS": 74.4,
+            "C/C++": 73.8,
+            "Ruby": 63.6,
+            "PHP": 69.8,
+            "Python": 70.0
+          },
+          "cost_usd": 8.2,
+          "avg_duration_s": 430.0,
+          "avg_turns": 51.2,
+          "cache_hit": 98.5,
+          "rank": 5
+        },
+        {
+          "system": "Kimi K2.6",
+          "org": "Moonshot AI",
+          "open_weights": true,
+          "tier": "Flagship",
+          "total_pass1": 66.9,
+          "resolved": 234,
+          "instances": 350,
+          "per_language": {
+            "Java": 69.8,
+            "Go": 50.0,
+            "Rust": 74.4,
+            "JS/TS": 65.1,
+            "C/C++": 71.4,
+            "Ruby": 68.2,
+            "PHP": 69.8,
+            "Python": 66.0
+          },
+          "cost_usd": 633.7,
+          "avg_duration_s": 1235.3,
+          "avg_turns": 78.7,
+          "cache_hit": 92.1,
+          "rank": 6
+        },
+        {
+          "system": "Qwen 3.6-flash",
+          "org": "Alibaba",
+          "open_weights": true,
+          "tier": "Flash",
+          "total_pass1": 66.0,
+          "resolved": 231,
+          "instances": 350,
+          "per_language": {
+            "Java": 83.7,
+            "Go": 54.8,
+            "Rust": 74.4,
+            "JS/TS": 58.1,
+            "C/C++": 66.7,
+            "Ruby": 59.1,
+            "PHP": 62.8,
+            "Python": 68.0
+          },
+          "cost_usd": 71.5,
+          "avg_duration_s": 636.0,
+          "avg_turns": 87.9,
+          "cache_hit": 97.6,
+          "rank": 7
+        },
+        {
+          "system": "MiniMax M2.7",
+          "org": "MiniMax",
+          "open_weights": true,
+          "tier": "Flagship",
+          "total_pass1": 61.4,
+          "resolved": 215,
+          "instances": 350,
+          "per_language": {
+            "Java": 65.1,
+            "Go": 47.6,
+            "Rust": 76.7,
+            "JS/TS": 55.8,
+            "C/C++": 61.9,
+            "Ruby": 61.4,
+            "PHP": 55.8,
+            "Python": 66.0
+          },
+          "cost_usd": 196.7,
+          "avg_duration_s": 1165.6,
+          "avg_turns": 94.8,
+          "cache_hit": 96.2,
+          "rank": 8
+        },
+        {
+          "system": "Seed 2.0-mini",
+          "org": "ByteDance",
+          "open_weights": false,
+          "tier": "Flash",
+          "total_pass1": 48.6,
+          "resolved": 170,
+          "instances": 350,
+          "per_language": {
+            "Java": 60.5,
+            "Go": 33.3,
+            "Rust": 55.8,
+            "JS/TS": 44.2,
+            "C/C++": 54.8,
+            "Ruby": 36.4,
+            "PHP": 48.8,
+            "Python": 54.0
+          },
+          "cost_usd": 19.4,
+          "avg_duration_s": 1153.0,
+          "avg_turns": 44.4,
+          "cache_hit": 79.4,
+          "rank": 9
+        }
+      ]
+    },
+    "claws": {
+      "id": "claws",
+      "title": "Same Model × Different Claws",
+      "subtitle": "Fixed model, varying the harness across 5 claws — isolates the harness effect (paper Table 3).",
+      "fixed": "Model",
+      "groups": [
+        {
+          "model": "GLM 5.1",
+          "rows": [
+            {
+              "system": "OpenClaw",
+              "org": "Steinberger",
+              "runtime": "Node.js",
+              "open_weights": true,
+              "total_pass1": 73.4,
+              "resolved": 257,
+              "instances": 350,
+              "per_language": {
+                "Java": 76.7,
+                "Go": 57.1,
+                "Rust": 86.0,
+                "JS/TS": 74.4,
+                "C/C++": 81.0,
+                "Ruby": 68.2,
+                "PHP": 72.1,
+                "Python": 72.0
+              },
+              "cost_usd": 277.0,
+              "avg_duration_s": 586.8,
+              "avg_turns": null,
+              "cache_hit": 96.5,
+              "rank": 1
+            },
+            {
+              "system": "Hermes-Agent",
+              "org": "Nous Research",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 71.1,
+              "resolved": 249,
+              "instances": 350,
+              "per_language": {
+                "Java": 72.1,
+                "Go": 54.8,
+                "Rust": 81.4,
+                "JS/TS": 72.1,
+                "C/C++": 73.8,
+                "Ruby": 72.7,
+                "PHP": 72.1,
+                "Python": 70.0
+              },
+              "cost_usd": 330.6,
+              "avg_duration_s": 675.1,
+              "avg_turns": null,
+              "cache_hit": 91.3,
+              "rank": 2
+            },
+            {
+              "system": "ZeroClaw",
+              "org": "ZeroClaw Labs",
+              "runtime": "Rust",
+              "open_weights": true,
+              "total_pass1": 70.3,
+              "resolved": 246,
+              "instances": 350,
+              "per_language": {
+                "Java": 83.7,
+                "Go": 50.0,
+                "Rust": 86.0,
+                "JS/TS": 69.8,
+                "C/C++": 69.0,
+                "Ruby": 65.9,
+                "PHP": 69.8,
+                "Python": 68.0
+              },
+              "cost_usd": 383.4,
+              "avg_duration_s": 538.2,
+              "avg_turns": null,
+              "cache_hit": 90.4,
+              "rank": 3
+            },
+            {
+              "system": "GenericAgent",
+              "org": "lsdefine",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 63.1,
+              "resolved": 221,
+              "instances": 350,
+              "per_language": {
+                "Java": 65.1,
+                "Go": 47.6,
+                "Rust": 69.8,
+                "JS/TS": 55.8,
+                "C/C++": 66.7,
+                "Ruby": 63.6,
+                "PHP": 65.1,
+                "Python": 70.0
+              },
+              "cost_usd": 85.8,
+              "avg_duration_s": 576.4,
+              "avg_turns": null,
+              "cache_hit": 66.8,
+              "rank": 4
+            },
+            {
+              "system": "NanoBot",
+              "org": "HKUDS",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 60.9,
+              "resolved": 213,
+              "instances": 350,
+              "per_language": {
+                "Java": 65.1,
+                "Go": 38.1,
+                "Rust": 67.4,
+                "JS/TS": 58.1,
+                "C/C++": 61.9,
+                "Ruby": 61.4,
+                "PHP": 67.4,
+                "Python": 66.0
+              },
+              "cost_usd": 768.8,
+              "avg_duration_s": 1166.3,
+              "avg_turns": null,
+              "cache_hit": 77.2,
+              "rank": 5
+            }
+          ]
+        },
+        {
+          "model": "Qwen 3.6-flash",
+          "rows": [
+            {
+              "system": "OpenClaw",
+              "org": "Steinberger",
+              "runtime": "Node.js",
+              "open_weights": true,
+              "total_pass1": 66.0,
+              "resolved": 231,
+              "instances": 350,
+              "per_language": {
+                "Java": 83.7,
+                "Go": 54.8,
+                "Rust": 74.4,
+                "JS/TS": 58.1,
+                "C/C++": 66.7,
+                "Ruby": 59.1,
+                "PHP": 62.8,
+                "Python": 68.0
+              },
+              "cost_usd": 71.5,
+              "avg_duration_s": 636.0,
+              "avg_turns": null,
+              "cache_hit": 97.6,
+              "rank": 1
+            },
+            {
+              "system": "Hermes-Agent",
+              "org": "Nous Research",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 62.6,
+              "resolved": 219,
+              "instances": 350,
+              "per_language": {
+                "Java": 65.1,
+                "Go": 42.9,
+                "Rust": 74.4,
+                "JS/TS": 58.1,
+                "C/C++": 61.9,
+                "Ruby": 65.9,
+                "PHP": 65.1,
+                "Python": 66.0
+              },
+              "cost_usd": 103.3,
+              "avg_duration_s": 638.6,
+              "avg_turns": null,
+              "cache_hit": 97.4,
+              "rank": 2
+            },
+            {
+              "system": "ZeroClaw",
+              "org": "ZeroClaw Labs",
+              "runtime": "Rust",
+              "open_weights": true,
+              "total_pass1": 58.3,
+              "resolved": 204,
+              "instances": 350,
+              "per_language": {
+                "Java": 62.8,
+                "Go": 47.6,
+                "Rust": 72.1,
+                "JS/TS": 55.8,
+                "C/C++": 47.6,
+                "Ruby": 56.8,
+                "PHP": 55.8,
+                "Python": 66.0
+              },
+              "cost_usd": 49.3,
+              "avg_duration_s": 428.9,
+              "avg_turns": null,
+              "cache_hit": 96.9,
+              "rank": 3
+            },
+            {
+              "system": "NanoBot",
+              "org": "HKUDS",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 47.4,
+              "resolved": 166,
+              "instances": 350,
+              "per_language": {
+                "Java": 41.9,
+                "Go": 42.9,
+                "Rust": 58.1,
+                "JS/TS": 37.2,
+                "C/C++": 45.2,
+                "Ruby": 45.5,
+                "PHP": 48.8,
+                "Python": 58.0
+              },
+              "cost_usd": 133.1,
+              "avg_duration_s": 562.7,
+              "avg_turns": null,
+              "cache_hit": 63.9,
+              "rank": 4
+            },
+            {
+              "system": "GenericAgent",
+              "org": "lsdefine",
+              "runtime": "Python",
+              "open_weights": true,
+              "total_pass1": 38.6,
+              "resolved": 135,
+              "instances": 350,
+              "per_language": {
+                "Java": 44.2,
+                "Go": 19.0,
+                "Rust": 55.8,
+                "JS/TS": 32.6,
+                "C/C++": 38.1,
+                "Ruby": 25.0,
+                "PHP": 48.8,
+                "Python": 44.0
+              },
+              "cost_usd": 14.5,
+              "avg_duration_s": 321.4,
+              "avg_turns": null,
+              "cache_hit": 74.7,
+              "rank": 5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
