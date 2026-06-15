@@ -175,8 +175,8 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
 
 <header class="nav"><div class="wrap nav-in">
   <a class="brand" href="#top">Claw-SWE-Bench</a>
-  <a class="link" href="#openclaw">OpenClaw × Models</a>
   <a class="link" href="#claws">Model × Claws</a>
+  <a class="link" href="#openclaw">OpenClaw × Models</a>
   <span class="spacer"></span>
   <a class="link" href="#about">About</a>
   <a class="link gh" id="paperBtn" href="#" target="_blank" rel="noopener">Paper</a>
@@ -205,8 +205,8 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
     </div>
   </section>
 
-  <section class="board" id="openclaw"></section>
   <section class="board" id="claws"></section>
+  <section class="board" id="openclaw"></section>
   <section class="board" id="pareto">
     <div class="sec-head"><div>
       <div class="tech-label">Full-350 · cost vs. quality</div>
