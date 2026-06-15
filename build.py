@@ -146,6 +146,8 @@ td .tag{margin-left:0}
 .grp-title{font-size:13px;font-weight:600;color:var(--t1);padding:15px 16px 8px;background:var(--card)}
 .grp-title .k{color:var(--t3);font-weight:400}
 .divider{height:1px;background:var(--border)}
+.figure-card{padding:22px 20px 12px;background:var(--card)}
+.figure-card svg{display:block;width:100%;height:auto;max-width:920px;margin:0 auto}
 
 /* ---- footer ---- */
 footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(in srgb,var(--card) 50%,transparent)}
@@ -203,6 +205,14 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
 
   <section class="board" id="openclaw"></section>
   <section class="board" id="claws"></section>
+  <section class="board" id="pareto">
+    <div class="sec-head"><div>
+      <div class="tech-label">Full-350 · cost vs. quality</div>
+      <h2>Cost–Resolve Pareto</h2>
+      <p class="sub">Total API cost (log scale) vs Pass@1 for all 5 claws × 2 models. Points on the frontier (line) are the most cost-efficient — a cheaper claw can match a pricier one.</p>
+    </div></div>
+    <div class="card figure-card">__PARETO__</div>
+  </section>
 </main>
 
 <footer id="about"><div class="wrap foot-in">
@@ -404,7 +414,12 @@ def main():
     with open(DATA, encoding="utf-8") as f:
         data = json.load(f)
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
-    html = TEMPLATE.replace("__DATA__", payload)
+    svg_path = os.path.join(HERE, "assets", "pareto.svg")
+    svg = ""
+    if os.path.exists(svg_path):
+        svg = open(svg_path, encoding="utf-8").read()
+        svg = svg[svg.find("<svg"):]  # drop XML decl/doctype so it inlines cleanly
+    html = TEMPLATE.replace("__DATA__", payload).replace("__PARETO__", svg)
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"wrote {OUT} ({len(html):,} bytes)")

@@ -23,11 +23,14 @@ Tables are click-to-sort; OpenClaw has an Open / Proprietary filter.
 | `index.html` | The site. **Generated — don't hand-edit.** |
 | `data/leaderboard.json` | The data source of truth. Edit numbers/tags here. |
 | `make_data.py` | Builds `leaderboard.json` from the arXiv paper numbers (hardcoded verbatim). |
-| `build.py` | Renders `data/leaderboard.json` → `index.html`. |
+| `make_pareto.py` | Renders `assets/pareto.svg` (dark-theme cost-vs-Pass@1 Pareto plot) from `leaderboard.json`. |
+| `assets/pareto.svg` | Generated figure, inlined into `index.html` by `build.py`. |
+| `build.py` | Renders `data/leaderboard.json` (+ inlines `pareto.svg`) → `index.html`. |
 
 ## Edit the data
 1. Edit `data/leaderboard.json` (or re-run `python3 make_data.py` to regenerate from source).
-2. Run `python3 build.py` to rebuild `index.html`.
+2. Run `python3 make_pareto.py` to refresh the Pareto figure.
+3. Run `python3 build.py` to rebuild `index.html`.
 
 ## Data provenance & caveats
 - **All numbers come straight from the published paper, https://arxiv.org/abs/2606.12344**
