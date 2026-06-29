@@ -25,6 +25,7 @@ MODEL_META = {
     "GPT 5.5":           ("OpenAI",      False, "Flagship"),
     "Claude Opus 4.7":   ("Anthropic",   False, "Flagship"),
     "GLM 5.1":           ("Z.ai",        True,  "Flagship"),
+    "GLM 5.2":           ("Z.ai",        True,  "Flagship"),
     "DeepSeek-V4 Pro":   ("DeepSeek",    True,  "Flagship"),
     "DeepSeek-V4 Flash": ("DeepSeek",    True,  "Flash"),
     "Kimi K2.6":         ("Moonshot AI", True,  "Flagship"),
@@ -42,11 +43,17 @@ HARNESS_META = {
     "NanoBot":      ("HKUDS",         "Python"),
 }
 
-# ── OpenClaw × 9 models ────────────────────────────────────────────────────
+# Post-paper additions (not in the arXiv tables) — shown with a NEW badge.
+NEW_MODELS = {"GLM 5.2"}
+
+# ── OpenClaw × models ──────────────────────────────────────────────────────
 # model: [Java,Go,Rust,JS/TS,C/C++,Ruby,PHP,Python], total, resolved, cost_usd, dur_s, turns, cache%
 OPENCLAW = [
     ("GPT 5.5",           [86.0,61.9,93.0,79.1,81.0,70.5,74.4,78.0], 78.0, 273, 1399.1, 603.7, 67.0, 97.3),
     ("Claude Opus 4.7",   [86.0,61.9,88.4,81.4,71.4,68.2,76.7,82.0], 77.1, 270, 1082.0, 424.6, 61.6, 97.0),
+    # GLM 5.2 — post-paper result (OpenClaw harness, GLM 5.2 xhigh, 350 instances);
+    # source: server evaluation_report_GLM5.2_xhigh_Combined_350.xlsx (2026-06-29). NOT in the paper.
+    ("GLM 5.2",           [81.4,57.1,86.0,79.1,83.3,70.5,69.8,68.0], 74.3, 260,  209.6, 488.2, 56.7, None),
     ("GLM 5.1",           [76.7,57.1,86.0,74.4,81.0,68.2,72.1,72.0], 73.4, 257,  277.0, 586.8, 80.6, 96.5),
     ("DeepSeek-V4 Pro",   [79.1,50.0,79.1,74.4,73.8,72.7,76.7,68.0], 71.7, 251,   81.3, 662.3, 47.1, 97.4),
     ("DeepSeek-V4 Flash", [81.4,50.0,79.1,74.4,73.8,63.6,69.8,70.0], 70.3, 246,    8.2, 430.0, 51.2, 98.5),
@@ -86,6 +93,7 @@ def build_openclaw_rows():
         org, openw, tier = MODEL_META[name]
         rows.append(dict(
             system=name, org=org, open_weights=openw, tier=tier,
+            new=(name in NEW_MODELS),
             total_pass1=total, resolved=resolved, instances=350,
             per_language=lang_map(perlang),
             cost_usd=cost, avg_duration_s=dur, avg_turns=turns, cache_hit=cache,
@@ -125,6 +133,7 @@ def main():
             primary_metric="Total Pass@1",
             paper="https://arxiv.org/abs/2606.12344",
             github="https://github.com/opensquilla/claw-swe-bench",
+            updated="2026-06-29",
             cost_note="Cost is total USD over the 350-instance run, as reported in the paper.",
             description=("Claw-SWE-Bench elevates the agent harness (a \"claw\") to a "
                          "controlled variable: model, task set, Docker runtime and the "

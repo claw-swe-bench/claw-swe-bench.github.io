@@ -138,6 +138,7 @@ td .tag{margin-left:0}
   font-family:var(--font-mono);letter-spacing:.02em}
 .tag.open{color:var(--green);background:color-mix(in srgb,var(--green) 14%,transparent);border:1px solid color-mix(in srgb,var(--green) 35%,transparent)}
 .tag.prop{color:var(--t2);background:var(--hover);border:1px solid var(--border)}
+.tag.new{color:var(--brand);background:color-mix(in srgb,var(--brand) 16%,transparent);border:1px solid color-mix(in srgb,var(--brand) 45%,transparent);font-weight:700}
 .tag.rt{color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent);border:1px solid color-mix(in srgb,var(--blue) 30%,transparent);margin-left:8px}
 .score{position:relative;font-variant-numeric:tabular-nums;font-weight:700;min-width:104px;font-family:var(--font-display);color:var(--t1)}
 .score .bar{position:absolute;left:16px;right:16px;bottom:6px;height:4px;border-radius:3px;background:color-mix(in srgb,var(--border) 70%,transparent)}
@@ -246,7 +247,7 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 document.getElementById('heroLead').textContent = M.description;
 document.getElementById('aboutText').textContent = M.description;
 document.getElementById('caveat').innerHTML =
-  'All numbers are taken verbatim from the paper (<a href="'+M.paper+'" target="_blank" rel="noopener">arXiv</a>, Tables 2 &amp; 3). Cost is total USD over the 350-instance run. Open-weights / org tags are best-effort and editable in <code>data/leaderboard.json</code>.';
+  'Paper models &amp; claws are verbatim from the paper (<a href="'+M.paper+'" target="_blank" rel="noopener">arXiv</a>, Tables 2 &amp; 3). Rows marked <span class="tag new">NEW</span> are post-paper releases run on the same 350-instance protocol'+(M.updated?' (latest: GLM 5.2, '+M.updated+')':'')+'. Cost is total USD over the run; org / license tags are best-effort and editable in <code>data/leaderboard.json</code>.';
 for(const id of ['paperBtn','paperBtn2']) document.getElementById(id).href = M.paper;
 if(M.github) document.getElementById('ghBtn').href = M.github;
 
@@ -280,7 +281,7 @@ function tableHTML(rows, state, tid, kind){
     const top = (i===0 && (!state.key || (state.key==='total_pass1' && state.dir<0))) ? ' top':'';
     const idCells = kind==='claws'
       ? `<td class="l"><span class="sys">${esc(r.system)}</span></td><td class="l org-col">${esc(r.org||'')}</td>`
-      : `<td class="l"><span class="sys">${esc(r.system)}</span></td><td class="l org-col">${esc(r.org||'')}</td><td class="l"><span class="tag ${r.open_weights?'open':'prop'}">${r.open_weights?'Open':'Proprietary'}</span></td>`;
+      : `<td class="l"><span class="sys">${esc(r.system)}${r.new?' <span class="tag new">NEW</span>':''}</span></td><td class="l org-col">${esc(r.org||'')}</td><td class="l"><span class="tag ${r.open_weights?'open':'prop'}">${r.open_weights?'Open':'Proprietary'}</span></td>`;
     const langCells = showLang ? LANGS.map(L=>{
       const v=r.per_language[L]; return `<td class="num">${v==null?'<span class=dim>—</span>':v.toFixed(1)}</td>`;
     }).join('') : '';
