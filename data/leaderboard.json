@@ -16,7 +16,7 @@
     "primary_metric": "Total Pass@1",
     "paper": "https://arxiv.org/abs/2606.12344",
     "github": "https://github.com/opensquilla/claw-swe-bench",
-    "updated": "2026-06-29",
+    "updated": "2026-07-09",
     "cost_note": "Cost is total USD over the 350-instance run, as reported in the paper.",
     "description": "Claw-SWE-Bench elevates the agent harness (a \"claw\") to a controlled variable: model, task set, Docker runtime and the official SWE-bench evaluator are held fixed; only the harness (or the model under a fixed harness) varies. 350 real GitHub issue-resolution tasks across 8 languages and 43 repositories."
   },
@@ -178,6 +178,31 @@
           "rank": 6
         },
         {
+          "system": "LongCat 2.0",
+          "org": "Meituan",
+          "open_weights": true,
+          "tier": "Flagship",
+          "new": true,
+          "total_pass1": 67.1,
+          "resolved": 235,
+          "instances": 350,
+          "per_language": {
+            "Java": 74.4,
+            "Go": 54.8,
+            "Rust": 81.4,
+            "JS/TS": 67.4,
+            "C/C++": 61.9,
+            "Ruby": 63.6,
+            "PHP": 67.4,
+            "Python": 66.0
+          },
+          "cost_usd": 478.0,
+          "avg_duration_s": 1091.4,
+          "avg_turns": 65.3,
+          "cache_hit": null,
+          "rank": 7
+        },
+        {
           "system": "Kimi K2.6",
           "org": "Moonshot AI",
           "open_weights": true,
@@ -200,7 +225,7 @@
           "avg_duration_s": 1235.3,
           "avg_turns": 78.7,
           "cache_hit": 92.1,
-          "rank": 7
+          "rank": 8
         },
         {
           "system": "Qwen 3.6-flash",
@@ -225,7 +250,7 @@
           "avg_duration_s": 636.0,
           "avg_turns": 87.9,
           "cache_hit": 97.6,
-          "rank": 8
+          "rank": 9
         },
         {
           "system": "MiniMax M2.7",
@@ -250,7 +275,7 @@
           "avg_duration_s": 1165.6,
           "avg_turns": 94.8,
           "cache_hit": 96.2,
-          "rank": 9
+          "rank": 10
         },
         {
           "system": "Seed 2.0-mini",
@@ -275,7 +300,7 @@
           "avg_duration_s": 1153.0,
           "avg_turns": 44.4,
           "cache_hit": 79.4,
-          "rank": 10
+          "rank": 11
         }
       ]
     },

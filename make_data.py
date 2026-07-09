@@ -32,6 +32,7 @@ MODEL_META = {
     "Qwen 3.6-flash":    ("Alibaba",     True,  "Flash"),
     "MiniMax M2.7":      ("MiniMax",     True,  "Flagship"),
     "Seed 2.0-mini":     ("ByteDance",   False, "Flash"),
+    "LongCat 2.0":       ("Meituan",     True,  "Flagship"),
 }
 
 # claw display -> (org, runtime)   (all open-source harnesses)
@@ -44,7 +45,7 @@ HARNESS_META = {
 }
 
 # Post-paper additions (not in the arXiv tables) — shown with a NEW badge.
-NEW_MODELS = {"GLM 5.2"}
+NEW_MODELS = {"GLM 5.2", "LongCat 2.0"}
 
 # ── OpenClaw × models ──────────────────────────────────────────────────────
 # model: [Java,Go,Rust,JS/TS,C/C++,Ruby,PHP,Python], total, resolved, cost_usd, dur_s, turns, cache%
@@ -59,6 +60,9 @@ OPENCLAW = [
     ("DeepSeek-V4 Flash", [81.4,50.0,79.1,74.4,73.8,63.6,69.8,70.0], 70.3, 246,    8.2, 430.0, 51.2, 98.5),
     ("Kimi K2.6",         [69.8,50.0,74.4,65.1,71.4,68.2,69.8,66.0], 66.9, 234,  633.7,1235.3, 78.7, 92.1),
     ("Qwen 3.6-flash",    [83.7,54.8,74.4,58.1,66.7,59.1,62.8,68.0], 66.0, 231,   71.5, 636.0, 87.9, 97.6),
+    # LongCat 2 — post-paper result (OpenClaw harness, 350 instances);
+    # source: server evaluation_report_LongCat2_Combined_350.xlsx (2026-07-09). NOT in the paper.
+    ("LongCat 2.0",       [74.4,54.8,81.4,67.4,61.9,63.6,67.4,66.0], 67.1, 235,  478.0,1091.4, 65.3, None),
     ("MiniMax M2.7",      [65.1,47.6,76.7,55.8,61.9,61.4,55.8,66.0], 61.4, 215,  196.7,1165.6, 94.8, 96.2),
     ("Seed 2.0-mini",     [60.5,33.3,55.8,44.2,54.8,36.4,48.8,54.0], 48.6, 170,   19.4,1153.0, 44.4, 79.4),
 ]
@@ -133,7 +137,7 @@ def main():
             primary_metric="Total Pass@1",
             paper="https://arxiv.org/abs/2606.12344",
             github="https://github.com/opensquilla/claw-swe-bench",
-            updated="2026-06-29",
+            updated="2026-07-09",
             cost_note="Cost is total USD over the 350-instance run, as reported in the paper.",
             description=("Claw-SWE-Bench elevates the agent harness (a \"claw\") to a "
                          "controlled variable: model, task set, Docker runtime and the "
