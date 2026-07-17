@@ -247,7 +247,7 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 document.getElementById('heroLead').textContent = M.description;
 document.getElementById('aboutText').textContent = M.description;
 document.getElementById('caveat').innerHTML =
-  'Paper models &amp; claws are verbatim from the paper (<a href="'+M.paper+'" target="_blank" rel="noopener">arXiv</a>, Tables 2 &amp; 3). Rows marked <span class="tag new">NEW</span> are post-paper releases run on the same 350-instance protocol'+(M.updated?' (latest: LongCat 2.0, '+M.updated+')':'')+'. Cost is total USD over the run; org / license tags are best-effort and editable in <code>data/leaderboard.json</code>.';
+  'Paper models &amp; claws are verbatim from the paper (<a href="'+M.paper+'" target="_blank" rel="noopener">arXiv</a>, Tables 2 &amp; 3). Rows marked <span class="tag new">NEW</span> are post-paper releases run on the same 350-instance protocol'+(M.updated?' (last update: '+M.updated+')':'')+'. Cost is total USD over the run; org / license tags are best-effort and editable in <code>data/leaderboard.json</code>.';
 for(const id of ['paperBtn','paperBtn2']) document.getElementById(id).href = M.paper;
 if(M.github) document.getElementById('ghBtn').href = M.github;
 

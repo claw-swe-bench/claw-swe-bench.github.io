@@ -33,6 +33,10 @@ MODEL_META = {
     "MiniMax M2.7":      ("MiniMax",     True,  "Flagship"),
     "Seed 2.0-mini":     ("ByteDance",   False, "Flash"),
     "LongCat 2.0":       ("Meituan",     True,  "Flagship"),
+    "HY3":               ("Tencent",     True,  "Flagship"),
+    "Kimi K2.7 Code":    ("Moonshot AI", True,  "Flagship"),
+    "MiniMax M3":        ("MiniMax",     True,  "Flagship"),
+    "Qwen 3.7 Max":      ("Alibaba",     False, "Flagship"),
 }
 
 # claw display -> (org, runtime)   (all open-source harnesses)
@@ -45,7 +49,7 @@ HARNESS_META = {
 }
 
 # Post-paper additions (not in the arXiv tables) — shown with a NEW badge.
-NEW_MODELS = {"GLM 5.2", "LongCat 2.0"}
+NEW_MODELS = {"GLM 5.2", "LongCat 2.0", "HY3", "Kimi K2.7 Code", "MiniMax M3", "Qwen 3.7 Max"}
 
 # ── OpenClaw × models ──────────────────────────────────────────────────────
 # model: [Java,Go,Rust,JS/TS,C/C++,Ruby,PHP,Python], total, resolved, cost_usd, dur_s, turns, cache%
@@ -56,6 +60,12 @@ OPENCLAW = [
     # source: server evaluation_report_GLM5.2_xhigh_Combined_350.xlsx (2026-06-29). NOT in the paper.
     ("GLM 5.2",           [81.4,57.1,86.0,79.1,83.3,70.5,69.8,68.0], 74.3, 260,  209.6, 488.2, 56.7, None),
     ("GLM 5.1",           [76.7,57.1,86.0,74.4,81.0,68.2,72.1,72.0], 73.4, 257,  277.0, 586.8, 80.6, 96.5),
+    # 4 post-paper rows below — source: benchmark/hy3-kimi27-minimax-comparison.html (2026-07-17). NOT in the paper.
+    # lang order [Java,Go,Rust,JS/TS,C/C++,Ruby,PHP,Python]
+    ("Qwen 3.7 Max",      [69.8,57.1,81.4,79.1,81.0,72.7,72.1,72.0], 73.1, 256,  436.4, 515.7, None, None),
+    ("MiniMax M3",        [74.4,54.8,79.1,65.1,73.8,63.6,69.8,76.0], 69.7, 244,  271.8, 805.6, None, None),
+    ("HY3",               [67.4,61.9,76.7,72.1,73.8,70.5,69.8,64.0], 69.4, 243,  141.1, 531.3, None, None),
+    ("Kimi K2.7 Code",    [72.1,47.6,76.7,65.1,71.4,68.2,72.1,72.0], 68.3, 239,  270.9, 669.0, None, None),
     ("DeepSeek-V4 Pro",   [79.1,50.0,79.1,74.4,73.8,72.7,76.7,68.0], 71.7, 251,   81.3, 662.3, 47.1, 97.4),
     ("DeepSeek-V4 Flash", [81.4,50.0,79.1,74.4,73.8,63.6,69.8,70.0], 70.3, 246,    8.2, 430.0, 51.2, 98.5),
     ("Kimi K2.6",         [69.8,50.0,74.4,65.1,71.4,68.2,69.8,66.0], 66.9, 234,  633.7,1235.3, 78.7, 92.1),
@@ -137,7 +147,7 @@ def main():
             primary_metric="Total Pass@1",
             paper="https://arxiv.org/abs/2606.12344",
             github="https://github.com/opensquilla/claw-swe-bench",
-            updated="2026-07-09",
+            updated="2026-07-17",
             cost_note="Cost is total USD over the 350-instance run, as reported in the paper.",
             description=("Claw-SWE-Bench elevates the agent harness (a \"claw\") to a "
                          "controlled variable: model, task set, Docker runtime and the "
