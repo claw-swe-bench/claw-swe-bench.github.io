@@ -58,7 +58,7 @@ OPENCLAW = [
     ("Claude Opus 4.7",   [86.0,61.9,88.4,81.4,71.4,68.2,76.7,82.0], 77.1, 270, 1082.0, 424.6, 61.6, 97.0),
     # GLM 5.2 — post-paper result (OpenClaw harness, GLM 5.2 xhigh, 350 instances);
     # source: server evaluation_report_GLM5.2_xhigh_Combined_350.xlsx (2026-06-29). NOT in the paper.
-    ("GLM 5.2",           [81.4,57.1,86.0,79.1,83.3,70.5,69.8,68.0], 74.3, 260,  209.6, 488.2, 56.7, None),
+    ("GLM 5.2",           [81.4,57.1,86.0,79.1,83.3,70.5,69.8,68.0], 74.3, 260,  304.13, 488.2, 56.7, None),
     ("GLM 5.1",           [76.7,57.1,86.0,74.4,81.0,68.2,72.1,72.0], 73.4, 257,  277.0, 586.8, 80.6, 96.5),
     # 4 post-paper rows below — source: benchmark/hy3-kimi27-minimax-comparison.html (2026-07-17). NOT in the paper.
     # lang order [Java,Go,Rust,JS/TS,C/C++,Ruby,PHP,Python]
