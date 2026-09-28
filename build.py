@@ -210,7 +210,7 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
     <div class="sec-head"><div>
       <div class="tech-label">Full-350 · cost vs. quality</div>
       <h2>Cost–Resolve Pareto</h2>
-      <p class="sub">Total API cost (log scale) vs Pass@1 for all 7 harnesses × 3 models in Table 2, using means over three runs. The line connects non-dominated pairs.</p>
+      <p class="sub">Total API cost (log scale) vs Pass@1 for all 7 harnesses × 3 models using means over three runs. The line connects non-dominated pairs.</p>
     </div></div>
     <div class="card figure-card">__PARETO__</div>
   </section>
