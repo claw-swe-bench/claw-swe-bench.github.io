@@ -210,7 +210,7 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
     <div class="sec-head"><div>
       <div class="tech-label">Full-350 · cost vs. quality</div>
       <h2>Cost–Resolve Pareto</h2>
-      <p class="sub">Total API cost (log scale) vs Pass@1 for all 5 claws × 2 models. Points on the frontier (line) are the most cost-efficient — a cheaper claw can match a pricier one.</p>
+      <p class="sub">Total API cost (log scale) vs Pass@1 for all 7 harnesses × 3 models in Table 2, using means over three runs. The line connects non-dominated pairs.</p>
     </div></div>
     <div class="card figure-card">__PARETO__</div>
   </section>
@@ -228,10 +228,12 @@ footer{margin-top:72px;border-top:1px solid var(--border);background:color-mix(i
   <div class="defs">
     <h4>Metrics</h4>
     <dl>
-      <dt>Total Pass@1</dt><dd>% of instances RESOLVED by the official SWE-bench evaluator (1 run/instance). Primary ranking metric.</dd>
-      <dt>Per-language Pass@1</dt><dd>Pass@1 within each of the 8 languages (toggle "Per-language").</dd>
-      <dt>Cost (USD)</dt><dd>Total US-dollar cost of the full 350-instance run, as reported in the paper.</dd>
-      <dt>Dur (s)</dt><dd>Mean per-instance wall-clock time — the primary cross-harness resource measure.</dd>
+      <dt>Pass@1 (%) / Resolved</dt><dd>Percentage / number of resolved instances. Table 2 reports three-run means; Tables F.1 and F.2 use one run per model.</dd>
+      <dt>Per-language Pass@1</dt><dd>Pass@1 within each language. OpenClaw paper rows follow Table F.2; historical cross-harness values are labeled separately.</dd>
+      <dt>Cost (USD)</dt><dd>Total API cost for 350 instances, averaged over the three full runs in Table 2.</dd>
+      <dt>Dur (s) / Turns</dt><dd>Mean duration in seconds / mean agent turns per instance.</dd>
+      <dt>In / Out (M)</dt><dd>Total input / output tokens in millions for 350 instances. In excludes cache-read tokens. Table 2 reports three-run means.</dd>
+      <dt>Cache (%)</dt><dd>Token-weighted input cache hit rate.</dd>
     </dl>
   </div>
 </div></footer>
@@ -242,12 +244,15 @@ const DATA = JSON.parse(document.getElementById('data').textContent);
 const M = DATA.meta, S = DATA.sections;
 const fmtCost = v => v==null ? '<span class="dim">—</span>' : '$'+(v>=100?Math.round(v).toLocaleString():v.toFixed(1));
 const fmtDur = d => d==null ? '<span class="dim">—</span>' : Math.round(d)+'s';
+const fmtNum = (v, digits=1) => v==null ? '<span class="dim">—</span>' : v.toFixed(digits);
+const paperCost = r => r.source_table ? '$'+fmtNum(r.cost_usd, r.source_table==='Table 2'?0:1) : fmtCost(r.cost_usd);
+const paperDur = r => r.source_table ? fmtNum(r.avg_duration_s, r.source_table==='Table 2'?0:1) : fmtDur(r.avg_duration_s);
 const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 
 document.getElementById('heroLead').textContent = M.description;
 document.getElementById('aboutText').textContent = M.description;
 document.getElementById('caveat').innerHTML =
-  'Paper models &amp; claws are verbatim from the paper (<a href="'+M.paper+'" target="_blank" rel="noopener">arXiv</a>, Tables 2 &amp; 3). Rows marked <span class="tag new">NEW</span> are post-paper releases run on the same 350-instance protocol'+(M.updated?' (last update: '+M.updated+')':'')+'. Cost is total USD over the run; org / license tags are best-effort and editable in <code>data/leaderboard.json</code>.';
+  'Results in the final manuscript are synchronized from Table 2 and Tables F.1–F.2 (updated '+esc(M.updated)+'). Existing results absent from those tables are retained; rows marked <span class="tag new">NEW</span> are additional releases. The Paper link points to the original <a href="'+M.paper+'" target="_blank" rel="noopener">technical report</a>. Organization and license tags retain their existing metadata; missing values are shown as —.';
 for(const id of ['paperBtn','paperBtn2']) document.getElementById(id).href = M.paper;
 if(M.github) document.getElementById('ghBtn').href = M.github;
 
@@ -260,16 +265,21 @@ function tableHTML(rows, state, tid, kind){
   const cols = [
     {k:'rank', l:'#', cls:'l', noSort:true},
     ...idHead.map(l=>({k:'_id', l, cls:'l', noSort:true})),
-    {k:'total_pass1', l:'Pass@1', cls:''},
+    {k:'resolved', l:'Resolved', cls:''},
+    {k:'total_pass1', l:'Pass@1 (%)', cls:''},
     ...(showLang ? LANGS.map(L=>({k:'lang:'+L, l:L, cls:''})) : []),
     {k:'cost_usd', l:'Cost (USD)', cls:''},
     {k:'avg_duration_s', l:'Dur (s)', cls:''},
+    {k:'input_tokens_m', l:'In (M)', cls:''},
+    {k:'output_tokens_m', l:'Out (M)', cls:''},
+    ...(kind==='openclaw' ? [{k:'avg_turns', l:'Turns', cls:''}] : []),
+    {k:'cache_hit', l:'Cache (%)', cls:''},
   ];
-  const getv = (r,k)=> k.startsWith('lang:') ? (r.per_language[k.slice(5)] ?? -1) : r[k];
+  const getv = (r,k)=> k.startsWith('lang:') ? r.per_language?.[k.slice(5)] : r[k];
   let sorted = rows.slice();
   if(state.key){
     const k=state.key, dir=state.dir;
-    sorted.sort((a,b)=>{ let x=getv(a,k), y=getv(b,k); return (x>y?1:x<y?-1:0)*dir; });
+    sorted.sort((a,b)=>{ let x=getv(a,k), y=getv(b,k); if(x==null) return y==null?0:1; if(y==null) return -1; return (x>y?1:x<y?-1:0)*dir; });
   }
   const thead = '<tr>'+cols.map(c=>{
     const act = state.key===c.k ? ' act' : '';
@@ -280,19 +290,24 @@ function tableHTML(rows, state, tid, kind){
   const body = sorted.map((r,i)=>{
     const top = (i===0 && (!state.key || (state.key==='total_pass1' && state.dir<0))) ? ' top':'';
     const idCells = kind==='claws'
-      ? `<td class="l"><span class="sys">${esc(r.system)}</span></td><td class="l org-col">${esc(r.org||'')}</td>`
-      : `<td class="l"><span class="sys">${esc(r.system)}${r.new?' <span class="tag new">NEW</span>':''}</span></td><td class="l org-col">${esc(r.org||'')}</td><td class="l"><span class="tag ${r.open_weights?'open':'prop'}">${r.open_weights?'Open':'Proprietary'}</span></td>`;
+      ? `<td class="l"><span class="sys">${esc(r.system)}${r.base_harness?'<sup title="Based on GenericAgent">†</sup>':''}</span></td><td class="l org-col">${esc(r.org||'—')}</td>`
+      : `<td class="l"><span class="sys">${esc(r.system)}${r.new?' <span class="tag new">NEW</span>':''}</span></td><td class="l org-col">${esc(r.org||'—')}</td><td class="l">${r.open_weights==null?'<span class="dim">—</span>':`<span class="tag ${r.open_weights?'open':'prop'}">${r.open_weights?'Open':'Proprietary'}</span>`}</td>`;
     const langCells = showLang ? LANGS.map(L=>{
-      const v=r.per_language[L]; return `<td class="num">${v==null?'<span class=dim>—</span>':v.toFixed(1)}</td>`;
+      const v=r.per_language?.[L]; return `<td class="num">${fmtNum(v)}</td>`;
     }).join('') : '';
     const w = (r.total_pass1/max*100).toFixed(1);
     return `<tr>
       <td class="l rank${top}">${i+1}</td>
       ${idCells}
+      <td class="num">${fmtNum(r.resolved, r.runs===3?1:0)}</td>
       <td class="score"><b>${r.total_pass1.toFixed(1)}</b><span class="bar"><i style="width:${w}%"></i></span></td>
       ${langCells}
-      <td class="num dim">${fmtCost(r.cost_usd)}</td>
-      <td class="num dim">${fmtDur(r.avg_duration_s)}</td>
+      <td class="num dim">${paperCost(r)}</td>
+      <td class="num dim">${paperDur(r)}</td>
+      <td class="num dim">${fmtNum(r.input_tokens_m)}</td>
+      <td class="num dim">${fmtNum(r.output_tokens_m)}</td>
+      ${kind==='openclaw'?`<td class="num dim">${fmtNum(r.avg_turns)}</td>`:''}
+      <td class="num dim">${fmtNum(r.cache_hit)}</td>
     </tr>`;
   }).join('');
   return `<div class="tbl-scroll"><table data-tid="${tid}"><thead>${thead}</thead><tbody>${body}</tbody></table></div>`;
@@ -303,7 +318,7 @@ function ensure(tid){ if(!STATE[tid]) STATE[tid]={key:'total_pass1',dir:-1,lang:
 
 function applyFilter(rows, mode){
   if(mode==='open') return rows.filter(r=>r.open_weights);
-  if(mode==='prop') return rows.filter(r=>!r.open_weights);
+  if(mode==='prop') return rows.filter(r=>r.open_weights===false);
   return rows;
 }
 
@@ -332,7 +347,7 @@ function renderClaws(){
   const sec=S.claws;
   const groups = sec.groups.map((g,gi)=>{
     const tid='claws'+gi, st=ensure(tid);
-    return `<div class="grp-title">Model: <b>${esc(g.model)}</b> <span class="k">· 5 claws, same model</span></div>
+    return `<div class="grp-title">Model: <b>${esc(g.model)}</b> <span class="k">· ${g.rows.length} harnesses, same model</span></div>
             ${tableHTML(g.rows, st, tid, 'claws')}`;
   }).join('<div class="divider"></div>');
   const anyLang = ensure('claws0').lang;
@@ -346,7 +361,9 @@ function renderClaws(){
         <label class="toggle"><input type="checkbox" id="clLang" ${anyLang?'checked':''}> Per-language</label>
       </div>
     </div>
-    <div class="card">${groups}</div>`;
+    <div class="card">${groups}</div>
+    <p class="note">† Meta-Harness is based on GenericAgent. In excludes cache-read tokens.</p>
+    ${anyLang?'<p class="note">Per-language values in this section are retained from historical single runs; they are not the language breakdown of the three-run Table 2 means. Missing per-language results are shown as —.</p>':''}`;
 }
 
 document.addEventListener('click', e=>{

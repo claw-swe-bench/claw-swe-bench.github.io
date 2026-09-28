@@ -1,0 +1,536 @@
+{
+  "source": {
+    "file": "Claw_SWE_Bench_iclr2027.pdf",
+    "sha256": "ef47fc70d46ab71fb892a79d434143beae688bf4684766e1ee7be6053e2d2630",
+    "version": "ICLR 2027 manuscript",
+    "synced": "2026-09-28",
+    "pages": {
+      "Table 2": 7,
+      "Table F.1": 18,
+      "Table F.2": 19
+    }
+  },
+  "table_2": [
+    {
+      "model": "GLM 5.1",
+      "system": "OpenClaw",
+      "resolved": 249.3,
+      "total_pass1": 71.2,
+      "cost_usd": 338.0,
+      "avg_duration_s": 511.0,
+      "input_tokens_m": 68.7,
+      "output_tokens_m": 8.1,
+      "cache_hit": 92.0
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "Hermes Agent",
+      "resolved": 256.0,
+      "total_pass1": 73.1,
+      "cost_usd": 389.0,
+      "avg_duration_s": 800.0,
+      "input_tokens_m": 64.4,
+      "output_tokens_m": 6.9,
+      "cache_hit": 94.1
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "nanobot",
+      "resolved": 240.3,
+      "total_pass1": 68.7,
+      "cost_usd": 525.0,
+      "avg_duration_s": 956.0,
+      "input_tokens_m": 150.4,
+      "output_tokens_m": 7.8,
+      "cache_hit": 87.7
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "ZeroClaw",
+      "resolved": 244.0,
+      "total_pass1": 69.7,
+      "cost_usd": 391.0,
+      "avg_duration_s": 548.0,
+      "input_tokens_m": 93.3,
+      "output_tokens_m": 4.3,
+      "cache_hit": 90.9
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "GenericAgent",
+      "resolved": 220.3,
+      "total_pass1": 62.9,
+      "cost_usd": 86.0,
+      "avg_duration_s": 576.0,
+      "input_tokens_m": 33.1,
+      "output_tokens_m": 5.1,
+      "cache_hit": 66.8
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "DeepSeek Harness",
+      "resolved": 241.7,
+      "total_pass1": 69.1,
+      "cost_usd": 513.0,
+      "avg_duration_s": 916.0,
+      "input_tokens_m": 93.2,
+      "output_tokens_m": 5.3,
+      "cache_hit": 93.7
+    },
+    {
+      "model": "GLM 5.1",
+      "system": "Meta-Harness",
+      "resolved": 230.0,
+      "total_pass1": 65.7,
+      "cost_usd": 190.0,
+      "avg_duration_s": 379.0,
+      "input_tokens_m": 79.7,
+      "output_tokens_m": 5.7,
+      "cache_hit": 72.2
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "OpenClaw",
+      "resolved": 213.0,
+      "total_pass1": 60.9,
+      "cost_usd": 87.0,
+      "avg_duration_s": 639.0,
+      "input_tokens_m": 34.6,
+      "output_tokens_m": 9.5,
+      "cache_hit": 97.4
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "Hermes Agent",
+      "resolved": 219.7,
+      "total_pass1": 62.8,
+      "cost_usd": 104.0,
+      "avg_duration_s": 639.0,
+      "input_tokens_m": 44.5,
+      "output_tokens_m": 7.3,
+      "cache_hit": 97.4
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "nanobot",
+      "resolved": 183.7,
+      "total_pass1": 52.5,
+      "cost_usd": 175.0,
+      "avg_duration_s": 636.0,
+      "input_tokens_m": 466.1,
+      "output_tokens_m": 9.9,
+      "cache_hit": 65.1
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "ZeroClaw",
+      "resolved": 204.0,
+      "total_pass1": 58.3,
+      "cost_usd": 69.0,
+      "avg_duration_s": 429.0,
+      "input_tokens_m": 32.7,
+      "output_tokens_m": 6.1,
+      "cache_hit": 96.9
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "GenericAgent",
+      "resolved": 134.7,
+      "total_pass1": 38.5,
+      "cost_usd": 39.0,
+      "avg_duration_s": 321.0,
+      "input_tokens_m": 73.8,
+      "output_tokens_m": 7.5,
+      "cache_hit": 71.5
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "DeepSeek Harness",
+      "resolved": 198.7,
+      "total_pass1": 56.8,
+      "cost_usd": 91.0,
+      "avg_duration_s": 614.0,
+      "input_tokens_m": 38.4,
+      "output_tokens_m": 9.7,
+      "cache_hit": 97.2
+    },
+    {
+      "model": "Qwen 3.6-flash",
+      "system": "Meta-Harness",
+      "resolved": 158.0,
+      "total_pass1": 45.1,
+      "cost_usd": 49.0,
+      "avg_duration_s": 301.0,
+      "input_tokens_m": 105.8,
+      "output_tokens_m": 7.6,
+      "cache_hit": 68.3
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "OpenClaw",
+      "resolved": 279.3,
+      "total_pass1": 79.8,
+      "cost_usd": 50.0,
+      "avg_duration_s": 566.0,
+      "input_tokens_m": 38.5,
+      "output_tokens_m": 25.4,
+      "cache_hit": 97.3
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "Hermes Agent",
+      "resolved": 286.0,
+      "total_pass1": 81.7,
+      "cost_usd": 36.0,
+      "avg_duration_s": 492.0,
+      "input_tokens_m": 41.8,
+      "output_tokens_m": 13.3,
+      "cache_hit": 96.9
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "nanobot",
+      "resolved": 278.7,
+      "total_pass1": 79.6,
+      "cost_usd": 78.0,
+      "avg_duration_s": 533.0,
+      "input_tokens_m": 184.9,
+      "output_tokens_m": 13.6,
+      "cache_hit": 84.2
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "ZeroClaw",
+      "resolved": 266.3,
+      "total_pass1": 76.1,
+      "cost_usd": 99.0,
+      "avg_duration_s": 1432.0,
+      "input_tokens_m": 57.6,
+      "output_tokens_m": 62.2,
+      "cache_hit": 95.3
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "GenericAgent",
+      "resolved": 250.3,
+      "total_pass1": 71.5,
+      "cost_usd": 12.0,
+      "avg_duration_s": 839.0,
+      "input_tokens_m": 11.7,
+      "output_tokens_m": 6.8,
+      "cache_hit": 88.1
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "DeepSeek Harness",
+      "resolved": 267.7,
+      "total_pass1": 76.5,
+      "cost_usd": 41.0,
+      "avg_duration_s": 1577.0,
+      "input_tokens_m": 56.4,
+      "output_tokens_m": 12.9,
+      "cache_hit": 96.3
+    },
+    {
+      "model": "DeepSeek-V4.1-Flash",
+      "system": "Meta-Harness",
+      "resolved": 262.3,
+      "total_pass1": 74.9,
+      "cost_usd": 13.0,
+      "avg_duration_s": 1005.0,
+      "input_tokens_m": 14.0,
+      "output_tokens_m": 7.2,
+      "cache_hit": 86.6
+    }
+  ],
+  "table_f1": [
+    {
+      "system": "GPT 5.5",
+      "tier": "Flagship",
+      "resolved": 273.0,
+      "total_pass1": 78.0,
+      "cost_usd": 1399.1,
+      "avg_duration_s": 603.7,
+      "input_tokens_m": 40.3,
+      "output_tokens_m": 15.7,
+      "avg_turns": 67.0,
+      "cache_hit": 97.3
+    },
+    {
+      "system": "Claude Opus 4.7",
+      "tier": "Flagship",
+      "resolved": 270.0,
+      "total_pass1": 77.1,
+      "cost_usd": 1082.0,
+      "avg_duration_s": 424.6,
+      "input_tokens_m": 35.6,
+      "output_tokens_m": 6.2,
+      "avg_turns": 61.6,
+      "cache_hit": 97.0
+    },
+    {
+      "system": "GLM 5.1",
+      "tier": "Flagship",
+      "resolved": 252.0,
+      "total_pass1": 72.0,
+      "cost_usd": 290.6,
+      "avg_duration_s": 511.2,
+      "input_tokens_m": 60.0,
+      "output_tokens_m": 7.0,
+      "avg_turns": 57.2,
+      "cache_hit": 91.9
+    },
+    {
+      "system": "DeepSeek-V4 Pro",
+      "tier": "Flagship",
+      "resolved": 251.0,
+      "total_pass1": 71.7,
+      "cost_usd": 81.3,
+      "avg_duration_s": 662.3,
+      "input_tokens_m": 19.3,
+      "output_tokens_m": 11.0,
+      "avg_turns": 47.1,
+      "cache_hit": 97.4
+    },
+    {
+      "system": "LongCat-2.0",
+      "tier": "Flagship",
+      "resolved": 235.0,
+      "total_pass1": 67.1,
+      "cost_usd": 478.0,
+      "avg_duration_s": 1091.4,
+      "input_tokens_m": 566.8,
+      "output_tokens_m": 21.7,
+      "avg_turns": 65.3,
+      "cache_hit": 58.2
+    },
+    {
+      "system": "Kimi K2.6",
+      "tier": "Flagship",
+      "resolved": 234.0,
+      "total_pass1": 66.9,
+      "cost_usd": 633.7,
+      "avg_duration_s": 1235.3,
+      "input_tokens_m": 75.6,
+      "output_tokens_m": 12.1,
+      "avg_turns": 78.7,
+      "cache_hit": 92.1
+    },
+    {
+      "system": "MiniMax M2.7",
+      "tier": "Flagship",
+      "resolved": 215.0,
+      "total_pass1": 61.4,
+      "cost_usd": 196.7,
+      "avg_duration_s": 1165.6,
+      "input_tokens_m": 25.0,
+      "output_tokens_m": 9.0,
+      "avg_turns": 94.8,
+      "cache_hit": 96.2
+    },
+    {
+      "system": "MiMo-v2.6-flash",
+      "tier": "Flash",
+      "resolved": 261.0,
+      "total_pass1": 74.6,
+      "cost_usd": 22.3,
+      "avg_duration_s": 1791.0,
+      "input_tokens_m": 60.8,
+      "output_tokens_m": 36.4,
+      "avg_turns": 57.7,
+      "cache_hit": 95.5
+    },
+    {
+      "system": "DeepSeek-V4 Flash",
+      "tier": "Flash",
+      "resolved": 246.0,
+      "total_pass1": 70.3,
+      "cost_usd": 8.2,
+      "avg_duration_s": 430.0,
+      "input_tokens_m": 13.8,
+      "output_tokens_m": 12.9,
+      "avg_turns": 51.2,
+      "cache_hit": 98.5
+    },
+    {
+      "system": "Qwen 3.6-flash",
+      "tier": "Flash",
+      "resolved": 213.0,
+      "total_pass1": 60.9,
+      "cost_usd": 77.5,
+      "avg_duration_s": 638.9,
+      "input_tokens_m": 31.7,
+      "output_tokens_m": 8.8,
+      "avg_turns": 68.2,
+      "cache_hit": 97.3
+    },
+    {
+      "system": "Seed 2.0-mini",
+      "tier": "Flash",
+      "resolved": 170.0,
+      "total_pass1": 48.6,
+      "cost_usd": 19.4,
+      "avg_duration_s": 1153.0,
+      "input_tokens_m": 89.8,
+      "output_tokens_m": 21.6,
+      "avg_turns": 44.4,
+      "cache_hit": 79.4
+    }
+  ],
+  "table_f2": [
+    {
+      "system": "GPT 5.5",
+      "per_language": {
+        "Java": 86.0,
+        "Go": 61.9,
+        "Rust": 93.0,
+        "JS/TS": 79.1,
+        "C/C++": 81.0,
+        "Ruby": 70.5,
+        "PHP": 74.4,
+        "Python": 78.0
+      },
+      "total_pass1": 78.0
+    },
+    {
+      "system": "Claude Opus 4.7",
+      "per_language": {
+        "Java": 86.0,
+        "Go": 61.9,
+        "Rust": 88.4,
+        "JS/TS": 81.4,
+        "C/C++": 71.4,
+        "Ruby": 68.2,
+        "PHP": 76.7,
+        "Python": 82.0
+      },
+      "total_pass1": 77.1
+    },
+    {
+      "system": "MiMo-v2.6-flash",
+      "per_language": {
+        "Java": 86.0,
+        "Go": 64.3,
+        "Rust": 81.4,
+        "JS/TS": 72.1,
+        "C/C++": 78.6,
+        "Ruby": 70.5,
+        "PHP": 74.4,
+        "Python": 70.0
+      },
+      "total_pass1": 74.6
+    },
+    {
+      "system": "GLM 5.1",
+      "per_language": {
+        "Java": 76.7,
+        "Go": 59.5,
+        "Rust": 81.4,
+        "JS/TS": 69.8,
+        "C/C++": 76.2,
+        "Ruby": 68.2,
+        "PHP": 74.4,
+        "Python": 70.0
+      },
+      "total_pass1": 72.0
+    },
+    {
+      "system": "DeepSeek-V4 Pro",
+      "per_language": {
+        "Java": 79.1,
+        "Go": 50.0,
+        "Rust": 79.1,
+        "JS/TS": 74.4,
+        "C/C++": 73.8,
+        "Ruby": 72.7,
+        "PHP": 76.7,
+        "Python": 68.0
+      },
+      "total_pass1": 71.7
+    },
+    {
+      "system": "DeepSeek-V4 Flash",
+      "per_language": {
+        "Java": 81.4,
+        "Go": 50.0,
+        "Rust": 79.1,
+        "JS/TS": 74.4,
+        "C/C++": 73.8,
+        "Ruby": 63.6,
+        "PHP": 69.8,
+        "Python": 70.0
+      },
+      "total_pass1": 70.3
+    },
+    {
+      "system": "LongCat-2.0",
+      "per_language": {
+        "Java": 74.4,
+        "Go": 54.8,
+        "Rust": 81.4,
+        "JS/TS": 67.4,
+        "C/C++": 61.9,
+        "Ruby": 63.6,
+        "PHP": 67.4,
+        "Python": 66.0
+      },
+      "total_pass1": 67.1
+    },
+    {
+      "system": "Kimi K2.6",
+      "per_language": {
+        "Java": 69.8,
+        "Go": 50.0,
+        "Rust": 74.4,
+        "JS/TS": 65.1,
+        "C/C++": 71.4,
+        "Ruby": 68.2,
+        "PHP": 69.8,
+        "Python": 66.0
+      },
+      "total_pass1": 66.9
+    },
+    {
+      "system": "MiniMax M2.7",
+      "per_language": {
+        "Java": 65.1,
+        "Go": 47.6,
+        "Rust": 76.7,
+        "JS/TS": 55.8,
+        "C/C++": 61.9,
+        "Ruby": 61.4,
+        "PHP": 55.8,
+        "Python": 66.0
+      },
+      "total_pass1": 61.4
+    },
+    {
+      "system": "Qwen 3.6-flash",
+      "per_language": {
+        "Java": 60.5,
+        "Go": 47.6,
+        "Rust": 69.8,
+        "JS/TS": 48.8,
+        "C/C++": 66.7,
+        "Ruby": 68.2,
+        "PHP": 62.8,
+        "Python": 62.0
+      },
+      "total_pass1": 60.9
+    },
+    {
+      "system": "Seed 2.0-mini",
+      "per_language": {
+        "Java": 60.5,
+        "Go": 33.3,
+        "Rust": 55.8,
+        "JS/TS": 44.2,
+        "C/C++": 54.8,
+        "Ruby": 36.4,
+        "PHP": 48.8,
+        "Python": 54.0
+      },
+      "total_pass1": 48.6
+    }
+  ]
+}
