@@ -124,7 +124,7 @@
           "cache_hit": 95.5,
           "runs": 1,
           "source_table": "Table F.1",
-          "new": false,
+          "new": true,
           "per_language_source": "Table F.2 (same single run as Table F.1)",
           "rank": 3
         },
@@ -348,7 +348,7 @@
           "org": "Meituan",
           "open_weights": true,
           "tier": "Flagship",
-          "new": false,
+          "new": true,
           "total_pass1": 67.1,
           "resolved": 235.0,
           "instances": 350,

@@ -35,7 +35,8 @@ def sync(data, source):
     for expected in source['table_f1']:
         row = find_or_add(oc['rows'], expected['system'], {'org': '', 'open_weights': None})
         row.update(expected)
-        row.update(runs=1, source_table='Table F.1', new=False)
+        row.update(runs=1, source_table='Table F.1',
+                   new=(expected['system'] in {'MiMo-v2.6-flash', 'LongCat-2.0'}))
     for expected in source['table_f2']:
         row = next(row for row in oc['rows'] if row['system'] == expected['system'])
         row.update(expected)
