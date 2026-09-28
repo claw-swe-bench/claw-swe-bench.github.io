@@ -42,7 +42,7 @@ def sync(data, source):
         row.update(expected)
         row['per_language_source'] = 'Table F.2 (same single run as Table F.1)'
     rank(oc['rows'])
-    oc['subtitle'] = 'Fixed OpenClaw harness, varying the LLM. Tables F.1 and F.2 report one run per model; additional existing results are retained.'
+    oc['subtitle'] = 'Fixed OpenClaw harness, varying the LLM.'
 
     claws = data['sections']['claws']
     harness_meta = {}
@@ -69,7 +69,7 @@ def sync(data, source):
             row['base_harness'] = 'GenericAgent'
     for group in claws['groups']:
         rank(group['rows'])
-    claws['subtitle'] = 'Seven harnesses × three models (Table 2). Each result is the mean of three separate full-350 runs.'
+    claws['subtitle'] = 'Seven harnesses × three models. Each result is the mean of three separate full-350 runs.'
     data['meta']['updated'] = source['source']['synced']
     data['meta']['paper_sync'] = source['source']
     data['meta']['cost_note'] = 'Cost is total USD for 350 instances; Table 2 reports the mean of three full-run totals.'
