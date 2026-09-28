@@ -252,7 +252,7 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 document.getElementById('heroLead').textContent = M.description;
 document.getElementById('aboutText').textContent = M.description;
 document.getElementById('caveat').innerHTML =
-  'Results in the final manuscript are synchronized from Table 2 and Tables F.1–F.2 (updated '+esc(M.updated)+'). Existing results absent from those tables are retained. <span class="tag new">NEW</span> marks recent leaderboard additions. The Paper link points to the original <a href="'+M.paper+'" target="_blank" rel="noopener">technical report</a>. Organization and license tags retain their existing metadata; missing values are shown as —.';
+  'Existing results not reported in the paper are retained. <span class="tag new">NEW</span> marks recent leaderboard additions. The Paper link points to the original <a href="'+M.paper+'" target="_blank" rel="noopener">technical report</a>. Organization and license tags retain their existing metadata; missing values are shown as —.';
 for(const id of ['paperBtn','paperBtn2']) document.getElementById(id).href = M.paper;
 if(M.github) document.getElementById('ghBtn').href = M.github;
 
